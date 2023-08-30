@@ -1,0 +1,24 @@
+query  Login($email: String!, $password: String!) {
+  login(email: $email, password: $password) {
+    ... on LoginDoc {
+      token
+      user {
+        id
+        name
+        email
+      }
+    }
+    ... on BadUserInputError {
+      code
+      message
+    }
+    ... on NotFoundError {
+      code
+      message
+    }
+    ... on InternalServerError {
+      code
+      message
+    }
+  }
+}

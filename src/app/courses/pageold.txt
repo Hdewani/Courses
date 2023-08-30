@@ -1,15 +1,39 @@
-"use client"
+'use client'
 
-import { Stack, Typography } from '@mui/material';
-import { GetAllCoursesDocument, useGetAllCoursesQuery } from '@sasta_udemy/generated/graphql'
+import { gql, useQuery } from '@apollo/client'
+import { Stack, Typography } from '@mui/material'
 import React from 'react'
 
-function CoursesPage() {
-    const { data, loading, error } = useGetAllCoursesQuery()
+const sampleData = {
+    "id": "64e992860d1acad7a22d3dc7",
+    "title": "Atomic Habits",
+    "description": "Atomic Habits: the life-changing million-copy",
+    "author": "James Clear",
+    "totalModules": 0
+}
+
+const ALL_COURSES_QUERY = gql`
+query AllCourses {
+  getAllCourses {
+    id
+    title
+    description
+    author
+    totalModules
+    
+  }
+}
+`
+
+function coursePage() {
+    const { data, loading, error } = useQuery
+        <{ getAllCourses: typeof sampleData[] }>
+        (ALL_COURSES_QUERY)
+
     return (
         <Stack direction={'column'} spacing={2}>
             {loading && <div>Loading...</div>}
-            {data?.getAllCourses?.map((course) => {
+            {data?.getAllCourses.map((course) => {
                 return (
                     <Stack key={course.id}>
                         <Typography variant='h5'>
@@ -31,4 +55,4 @@ function CoursesPage() {
     );
 }
 
-export default CoursesPage
+export default coursePage

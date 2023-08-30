@@ -1,0 +1,10 @@
+query  GetAllCourses {
+  getAllCourses {
+    id
+    title
+    description
+    author
+    totalModules
+   
+  }
+}
